@@ -1,0 +1,209 @@
+Building configuration...
+
+Current configuration : 4548 bytes
+!
+! Last configuration change at 01:22:36 UTC Fri Jul 10 2026 by cisco
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname Candia-Oyanedel
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+ip domain name etw.netacad.com
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+ipv6 unicast-routing
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3327910715
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3327910715
+ revocation-check none
+ rsakeypair TP-self-signed-3327910715
+!
+!
+crypto pki certificate chain TP-self-signed-3327910715
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33333237 39313037 3135301E 170D3236 30373130 30303331 
+  34385A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 33323739 
+  31303731 35308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01009FBB AED94EF3 394045A1 230841E2 C6A4AE6F 735CB3EA D9CB35A2 
+  F1F5F401 0AD91A45 EBDACD49 05C6C1AF CDDB2E20 34DF9748 BA33A9F7 B6589157 
+  890C573A 4E85C42A C71B5084 B55FAD86 5E98D7E8 FB4CD55F 475E8F21 A6A4D2E4 
+  D31C22C1 AE0966F5 A98AB646 6ACECBC8 31D8B345 A3AF8FFA 33D1A5B0 DDCA6EA5 
+  E0056BC1 F07C3FCF 695DD931 B26047FE 5ED669B0 62358980 2211B96D 0C7D44AE 
+  44A7DE8D 0DC1C980 EDC195FC A63E0604 A8ABF7CE 142A6652 76D87AD6 4990CA9C 
+  B5F21D92 DAC80368 6E038785 E469362B 30040E54 F635AF10 4EDB5B65 3EE8C9F2 
+  57867C40 BB066DBC 4C17778E 7C37F5E9 76F28BD4 E90074C1 DDEEA3D5 81BE09FA 
+  AFDA3222 00FD0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 140330D5 0DEAD712 DBFA8D3A 531ADD5F 56359996 
+  37301D06 03551D0E 04160414 0330D50D EAD712DB FA8D3A53 1ADD5F56 35999637 
+  300D0609 2A864886 F70D0101 05050003 82010100 656CA201 6D568D4A 1E063213 
+  54E6AA34 F1AF459E 377ABDA6 388242F7 05EB1BBA 2F95199F D15DEF52 5A88DFD7 
+  D495602E F16F194C 0ED47BD3 6AC23672 35DA2BAF 27BAC01B 5B947290 1AD303DB 
+  18521D35 025CB05C 3494B862 CD93493A A557525F D71E95AE 6B96180A 831737B1 
+  B80C69BF 72C2B58E 5EE277E3 159EC686 5D46D0C5 78DC5FA6 DC241114 67404D97 
+  3EA9829D 622A6656 D95A768B C0D3158A 1C0094E1 62E1AF1C 0FAD9DA2 8DA637E0 
+  3B811D3F B57C2B2F F20AA834 98192B20 8EFB846F E0A85156 24BBD41F 117A7B4D 
+  1DD4938D FE2B59AC 4AB21548 B3098B01 763C7653 59473601 30B0D0F5 71C8CA3B 
+  CB7BD971 8BBE4AF2 0FE2DB3F CBFB65EA CD6F8A0B
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9AO8DOPOMC6
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+netconf-yang
+!
+restconf
+!
+username cisco privilege 15 password 0 cisco123!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback33
+ description Loopback 33 - Creada desactivada en Item 5
+ ip address 33.33.33.33 255.255.255.255
+ shutdown
+!
+interface Loopback44
+ description Loopback 44 - Creada mediante Ansible
+ no ip address
+ ipv6 address FE80::1 link-local
+ ipv6 address 3001:ABCD:ABCD:4::4/128
+!
+interface GigabitEthernet1
+ description VBox
+ ip address dhcp
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+router ospf 1
+ router-id 1.1.1.1
+ passive-interface default
+ no passive-interface GigabitEthernet1
+ network 0.0.0.0 255.255.255.255 area 0
+!
+ip forward-protocol nd
+no ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+ipv6 router ospf 1
+ router-id 1.1.1.1
+ passive-interface default
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+banner motd ^C
+*                                           *
+**                                         **
+***                                       ***
+***  Cisco Networking Academy             ***
+***   Emerging Technologies Workshop:     ***
+***    Model Driven Programmability       ***
+***                                       ***
+***  This software is provided for        ***
+***   Educational Purposes                ***
+***    Only in Networking Academies       ***
+***                                       ***
+**                                         **
+*                                           *
+^C
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+!
+!
+!
+end
