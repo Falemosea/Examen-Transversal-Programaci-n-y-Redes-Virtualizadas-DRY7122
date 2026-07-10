@@ -1,0 +1,15 @@
+---
+- name: Generar respaldo de la configuracion del router
+  hosts: routers
+  gather_facts: no
+  tasks:
+    - name: Ejecutar comando show running-config
+      ios_command:
+        commands: show running-config
+      register: backup_output
+
+    - name: Guardar la configuracion en un archivo local
+      copy:
+        content: "{{ backup_output.stdout[0] }}"
+        dest: "./respaldo_running_config.txt"
+      delegate_to: localhost

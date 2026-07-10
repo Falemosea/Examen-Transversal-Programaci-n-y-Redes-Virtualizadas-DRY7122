@@ -1,0 +1,30 @@
+---
+- name: Instalar y configurar Servidor Web Apache
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Instalar el paquete apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Modificar puertos en ports.conf a 9999
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: '^Listen '
+        line: 'Listen 9999'
+      notify: Reiniciar Apache
+
+    - name: Modificar puerto en el VirtualHost por defecto
+      lineinfile:
+        path: /etc/apache2/sites-available/000-default.conf
+        regexp: '<VirtualHost \*:.*>'
+        line: '<VirtualHost *:9999>'
+      notify: Reiniciar Apache
+
+  handlers:
+    - name: Reiniciar Apache
+      service:
+        name: apache2
+        state: restarted
